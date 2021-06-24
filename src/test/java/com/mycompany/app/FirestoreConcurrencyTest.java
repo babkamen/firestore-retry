@@ -112,7 +112,6 @@ public class FirestoreConcurrencyTest extends MultithreadedTestCase {
             }
             log.info("Trying again to create document if not exists");
         }
-
     }
 
     private DocumentReference createDocumentIfNotExists(final Firestore db) throws InterruptedException, ExecutionException, TimeoutException {
