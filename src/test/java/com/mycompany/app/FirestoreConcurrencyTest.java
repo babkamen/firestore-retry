@@ -81,7 +81,6 @@ public class FirestoreConcurrencyTest extends MultithreadedTestCase {
 
     private DocumentReference doWithRetry(final Callable<DocumentReference> callable) throws Exception {
         DocumentReference result;
-        waitForTick(1);
         while (true) {
             try {
                 result = callable.call();
