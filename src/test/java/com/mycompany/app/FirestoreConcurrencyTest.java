@@ -94,16 +94,16 @@ public class FirestoreConcurrencyTest extends MultithreadedTestCase {
                     while ((cause = cause.getCause()) != null && !(cause instanceof ApiException)) {
                     }
                 }
-                log.info("Caught exception when running firestore transaction", cause);
+                log.info("Caught exception ", cause);
                 if (cause != null) {
                     log.info("Exception is retryable {}", ((ApiException) cause).isRetryable());
                 }
                 if (cause != null && (((ApiException) cause).isRetryable() || ((ApiException) cause).getStatusCode().getCode() == StatusCode.Code.ABORTED ||
                         ((ApiException) cause).getStatusCode().getCode() == StatusCode.Code.INVALID_ARGUMENT) || ex.getMessage().contains("transaction closed")) {
-                    log.debug("Caught retryable exception while trying to run transaction", ex);
+                    log.debug("Caught retryable exception", ex);
                     Thread.sleep(50);
                 } else {
-                    log.error("Caught non-retryable exception while trying to run firestore transaction", ex);
+                    log.error("Caught non-retryable exception", ex);
                     throw ex;
                 }
             } catch (TimeoutException e) {
