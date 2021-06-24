@@ -27,6 +27,7 @@ public class FirestoreConcurrencyTest extends MultithreadedTestCase {
     public static final String FIELD_VALUE = "dsadssaasaasdsasadsadsadassadasdasdsa";
     private Logger log = LoggerFactory.getLogger(FirestoreConcurrencyTest.class);
     private Credentials credentials;
+    //TODO: Please change this if you run on your local env
     private String keyFilePath = "";
     private String projectId = "";
 
@@ -88,12 +89,13 @@ public class FirestoreConcurrencyTest extends MultithreadedTestCase {
                 Thread.sleep(30);
                 log.info("Trying again");
             } catch (ExecutionException ex) {
+                log.info("Caught exception ", ex);
                 Throwable cause = ex.getCause();
                 if (cause != null) {
                     while ((cause = cause.getCause()) != null && !(cause instanceof ApiException)) {
                     }
                 }
-                log.info("Caught exception ", cause);
+
                 if (cause != null) {
                     log.info("Exception is retryable {}", ((ApiException) cause).isRetryable());
                 }
